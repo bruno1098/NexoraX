@@ -1,20 +1,22 @@
 "use client";
 
-import Hero from '@/components/sections/Hero';
-import Services from '@/components/sections/Services';
-import HowItWorks from '@/components/sections/HowItWorks';
-import WhyChooseUs from '@/components/sections/WhyChooseUs';
-import Testimonials from '@/components/sections/Testimonials';
-import CallToAction from '@/components/sections/CallToAction';
-import Footer from '@/components/sections/Footer';
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { useLoading } from '@/components/providers/LoadingProvider';
+
+// Importações dinâmicas
+const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false });
+const Services = dynamic(() => import('@/components/sections/Services'), { ssr: false });
+const HowItWorks = dynamic(() => import('@/components/sections/HowItWorks'), { ssr: false });
+const WhyChooseUs = dynamic(() => import('@/components/sections/WhyChooseUs'), { ssr: false });
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials'), { ssr: false });
+const CallToAction = dynamic(() => import('@/components/sections/CallToAction'), { ssr: false });
+const Footer = dynamic(() => import('@/components/sections/Footer'), { ssr: false });
 
 export default function Home() {
   const { stopLoading } = useLoading();
 
   useEffect(() => {
-    // Garante que o loading pare quando a página estiver montada
     const timer = setTimeout(() => {
       stopLoading();
     }, 500);

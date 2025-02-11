@@ -6,10 +6,13 @@ const nextConfig = {
   experimental: {
     // Desative recursos experimentais que possam causar problemas
     serverActions: false,
+    appDir: true,
+    serverComponentsExternalPackages: ['@lottiefiles/react-lottie-player']
   },
   // Otimizações de compilação
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    styledComponents: true,
   },
   webpack: (config) => {
     config.externals = [...config.externals, { canvas: 'canvas' }];  // Required for Three.js
