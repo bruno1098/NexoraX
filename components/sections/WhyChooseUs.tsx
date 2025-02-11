@@ -113,14 +113,23 @@ const reasons = [
 
 const Card3D = ({ reason, index }: Card3DProps) => {
   const [isHovered, setHovered] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const Icon = reason.icon;
   
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const springs = useSpring({
     transform: isHovered 
       ? 'scale(1.05) skewX(0deg)' 
       : 'scale(1) skewX(10deg)',
     config: { mass: 5, tension: 500, friction: 80 }
   });
+
+  if (!isMounted) {
+    return null; // ou um placeholder/loading state
+  }
 
   return (
     <AnimatedDiv
@@ -185,25 +194,29 @@ export default function WhyChooseUs() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = document.querySelectorAll('.reason-card');
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      
+      const ctx = gsap.context(() => {
+        const cards = document.querySelectorAll('.reason-card');
 
-      cards.forEach((card, index) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom-=50',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.5,
-          delay: index * 0.1,
+        cards.forEach((card, index) => {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top bottom-=50',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.5,
+            delay: index * 0.1,
+          });
         });
-      });
-    }, sectionRef);
+      }, sectionRef);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    }
   }, []);
 
   return (
