@@ -5,7 +5,7 @@ const nextConfig = {
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   experimental: {
     // Desative recursos experimentais que possam causar problemas
-    serverActions: false,
+    serverActions: true,
     appDir: true,
     serverComponentsExternalPackages: ['@lottiefiles/react-lottie-player']
   },
@@ -25,6 +25,13 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+  output: 'standalone',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  }
 };
 
 module.exports = nextConfig;

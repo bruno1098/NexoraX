@@ -12,6 +12,7 @@ import landingPageAnim from '../../public/animations/Animation - 1739299512900.j
 import scheduleAnim from '../../public/animations/AnimationSchedule.json';
 import dashboardAnim from '../../public/animations/AnimationBusiness.json';
 import mobileAnim from '../../public/animations/AnimationMobile.json';
+import { isBrowser } from '@/lib/utils';
 
 gsap.registerPlugin(ScrollTrigger);
 type ServiceType = {
@@ -98,6 +99,8 @@ export default function Services() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   useEffect(() => {
+    if (!isBrowser()) return;
+
     const ctx = gsap.context(() => {
       services.forEach((_, index) => {
         gsap.from(`.service-card-${index}`, {

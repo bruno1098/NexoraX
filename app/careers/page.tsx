@@ -660,4 +660,6 @@ export default function CareersPage() {
       </section>
     </div>
   );
-} 
+}
+
+export const dynamic = 'force-dynamic'; 
