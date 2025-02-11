@@ -499,11 +499,7 @@ export default function CareersPage() {
                     </p>
                   </div>
                 </div>
-                <p className={cn(
-                  theme === 'light' ? "text-white/80" : "text-muted-foreground"
-                )}>
-                  '{testimonial.content}'
-                </p>
+                <p>&rsquo;{testimonial.content}&rsquo;</p>
               </motion.div>
             ))}
           </div>
