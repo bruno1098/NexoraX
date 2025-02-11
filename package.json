@@ -10,6 +10,7 @@
     "clean": "rm -rf .next && rm -rf node_modules && npm install"
   },
   "dependencies": {
+    "@babel/core": "^7.26.8",
     "@hookform/resolvers": "^3.9.0",
     "@lottiefiles/react-lottie-player": "^3.6.0",
     "@next/swc-wasm-nodejs": "13.5.1",
