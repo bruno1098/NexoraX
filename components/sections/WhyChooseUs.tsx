@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated, SpringValue } from 'react-spring';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
@@ -31,6 +31,19 @@ interface Card3DProps {
   reason: Reason;
   index: number;
 }
+
+interface AnimatedDivProps {
+  className?: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  style?: {
+    transform?: SpringValue<string>;
+    opacity?: SpringValue<number>;
+  };
+  children?: React.ReactNode;
+}
+
+const AnimatedDiv = animated('div') as unknown as React.FC<AnimatedDivProps>;
 
 const reasons = [
   {
@@ -99,27 +112,42 @@ const reasons = [
 ];
 
 const Card3D = ({ reason, index }: Card3DProps) => {
-  const [hovered, setHovered] = useState(false);
+  const [isHovered, setHovered] = useState(false);
   const Icon = reason.icon;
   
-  const { transform, opacity } = useSpring({
-    transform: hovered ? 'scale(1.05) skewX(0deg)' : 'scale(1) skewX(5deg)',
-    opacity: hovered ? 1 : 0.9,
-    config: { mass: 1, tension: 200, friction: 20 }
+  const springs = useSpring({
+    transform: isHovered 
+      ? 'scale(1.05) skewX(0deg)' 
+      : 'scale(1) skewX(10deg)',
+    config: { mass: 5, tension: 500, friction: 80 }
   });
 
   return (
-    <animated.div
-      className="reason-card relative group"
-      style={{ transform, opacity }}
+    <AnimatedDiv
+      className="reason-card relative group min-h-[400px] transition-transform md:transform-none hover:md:transform-none"
+      style={springs}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="card-3d-content bg-white/30 backdrop-blur-md rounded-xl p-6 border-b-2 border-l border-white/40 shadow-[rgba(0,0,0,0.25)_-20px_25px_30px] transition-all duration-500 hover:translate-y-[-10px] overflow-hidden">
+      <motion.div 
+        className="card-3d-content bg-white/30 backdrop-blur-md rounded-xl p-6 h-full border-b-2 border-l border-white/40 shadow-[rgba(0,0,0,0.28)_-40px_50px_30px]"
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ 
+          y: 0, 
+          opacity: 1,
+          transition: {
+            type: "spring",
+            bounce: 0.4,
+            duration: 0.8,
+            delay: index * 0.2
+          }
+        }}
+        viewport={{ once: true, margin: "-50px" }}
+      >
         <div className="flex items-center gap-2 mb-6">
-          <div className="w-3 h-3 rounded-full bg-[#ff605c] shadow-[-2px_2px_4px_rgba(0,0,0,0.2)]" />
-          <div className="w-3 h-3 rounded-full bg-[#ffbd44] shadow-[-2px_2px_4px_rgba(0,0,0,0.2)]" />
-          <div className="w-3 h-3 rounded-full bg-[#00ca4e] shadow-[-2px_2px_4px_rgba(0,0,0,0.2)]" />
+          <div className="w-3 h-3 rounded-full bg-[#ff605c] shadow-[-5px_5px_5px_rgba(0,0,0,0.28)]" />
+          <div className="w-3 h-3 rounded-full bg-[#ffbd44] shadow-[-5px_5px_5px_rgba(0,0,0,0.28)]" />
+          <div className="w-3 h-3 rounded-full bg-[#00ca4e] shadow-[-5px_5px_5px_rgba(0,0,0,0.28)]" />
         </div>
 
         <div className="icon-container mb-6 relative">
@@ -131,21 +159,25 @@ const Card3D = ({ reason, index }: Card3DProps) => {
           {reason.title}
         </h3>
         
-        <p className="text-muted-foreground mb-6 transition-all duration-300 group-hover:opacity-100">
+        <p className="text-muted-foreground mb-6">
           {reason.description}
         </p>
         
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: index * 0.2 }}
           className="bg-primary/10 rounded-lg p-4"
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ 
+            scale: 1, 
+            opacity: 1,
+            transition: { delay: index * 0.3 }
+          }}
+          viewport={{ once: true }}
         >
           <p className="text-lg font-semibold text-primary">{reason.stats}</p>
           <p className="text-sm text-muted-foreground">{reason.highlight}</p>
         </motion.div>
-      </div>
-    </animated.div>
+      </motion.div>
+    </AnimatedDiv>
   );
 };
 
