@@ -8,17 +8,10 @@ export function usePageLoading() {
   const { stopLoading } = useLoading();
 
   useEffect(() => {
-    const handleStop = () => {
+    const timer = setTimeout(() => {
       stopLoading();
-    };
+    }, 500);
 
-    // Verifica se o documento já está carregado
-    if (document.readyState === 'complete') {
-      handleStop();
-    } else {
-      // Se não estiver, adiciona o evento load
-      window.addEventListener('load', handleStop);
-      return () => window.removeEventListener('load', handleStop);
-    }
+    return () => clearTimeout(timer);
   }, [pathname, searchParams, stopLoading]);
 } 
