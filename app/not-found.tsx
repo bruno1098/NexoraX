@@ -6,37 +6,33 @@ import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 import { Home, Rocket } from 'lucide-react';
 import Link from 'next/link';
-import { Canvas } from '@react-three/fiber';
-import { Stars } from '@react-three/drei';
 
 export default function NotFound() {
   const { theme } = useTheme();
 
   return (
     <div className={cn(
-      "min-h-screen relative overflow-hidden",
+      "min-h-screen w-full relative overflow-hidden",
       theme === 'light' ? "animated-gradient-light" : "bg-background"
     )}>
+      {/* Fundo animado para tema escuro */}
       {theme === 'dark' && (
-        <div className="absolute inset-0 animated-gradient-dark opacity-20" />
+        <>
+          <div className="absolute inset-0 animated-gradient-dark opacity-20" />
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background to-background animate-pulse" />
+            <div className="absolute inset-0 bg-grid-small-white/10" />
+          </div>
+        </>
       )}
       
-      <div className="absolute inset-0 bg-grid-white/10" />
-
-      {/* Canvas Three.js para estrelas */}
-      <div className="absolute inset-0">
-        <Canvas>
-          <Stars 
-            radius={100}
-            depth={50}
-            count={5000}
-            factor={4}
-            saturation={0}
-            fade
-            speed={1}
-          />
-        </Canvas>
-      </div>
+      {/* Fundo animado para tema claro */}
+      {theme === 'light' && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-background animate-gradient" />
+          <div className="absolute inset-0 bg-grid-small-white/10" />
+        </>
+      )}
 
       <div className="container relative z-10 min-h-screen flex flex-col items-center justify-center text-center py-20">
         <motion.div

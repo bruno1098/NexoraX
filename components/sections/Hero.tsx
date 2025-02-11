@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Sparkles, Code, Laptop, Server, Database } from 'lucide-react';
-import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,11 +108,9 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.5 }}
             >
               <div className="relative">
-                <Image
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                <img
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80"
                   alt="Desenvolvimento de Software"
-                  width={2072}
-                  height={1380}
                   className="rounded-2xl shadow-2xl"
                 />
 
