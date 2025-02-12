@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei', '@splinetool/react-spline'],
   experimental: {
     // Desative recursos experimentais que possam causar problemas
     serverActions: true,

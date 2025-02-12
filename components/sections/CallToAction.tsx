@@ -65,7 +65,7 @@ export default function CallToAction() {
               className="inline-block"
             >
               <motion.a
-                href="#contact"
+                href="/contact"
                 className={cn(
                   "inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg",
                   theme === 'light' 

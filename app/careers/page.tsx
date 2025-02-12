@@ -348,6 +348,7 @@ export default function CareersPage() {
                     loop
                     src={item.animation}
                     style={{ 
+                      
                       width: '60%',
                       height: '60%',
                       objectFit: 'cover',

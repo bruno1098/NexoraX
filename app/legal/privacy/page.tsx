@@ -165,7 +165,7 @@ export default function PrivacyPage() {
         )}>
           Para exercer seus direitos ou tirar dúvidas, contate nosso DPO:{' '}
           <a 
-            href="mailto:privacidade@nexorax.com" 
+            href="mailto:nexorax1@gmail.com" 
             className={cn(
               "transition-colors",
               theme === 'light' 

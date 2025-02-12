@@ -277,7 +277,7 @@ export default function FAQPage() {
         )}>
           Não encontrou o que procurava? Entre em contato:{' '}
           <a 
-            href="mailto:suporte@nexorax.com" 
+            href="mailto:nexorax1@gmail.com" 
             className={cn(
               "transition-colors",
               theme === 'light' 
@@ -285,7 +285,7 @@ export default function FAQPage() {
                 : "text-primary hover:text-primary/80"
             )}
           >
-            suporte@nexorax.com
+            nexorax1@gmail.com
           </a>
         </p>
       </motion.div>

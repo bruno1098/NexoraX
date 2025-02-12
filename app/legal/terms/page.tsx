@@ -155,7 +155,7 @@ export default function TermsPage() {
           )}>
             Para dúvidas sobre nossos termos, entre em contato através do email:{' '}
             <a 
-              href="mailto:legal@nexorax.com" 
+              href="mailto:nexorax1@gmail.com" 
               className={cn(
                 "transition-colors",
                 theme === 'light' 
@@ -163,7 +163,7 @@ export default function TermsPage() {
                   : "text-primary hover:text-primary/80"
               )}
             >
-              legal@nexorax.com
+              nexorax1@gmail.com
             </a>
           </p>
         </motion.section>
