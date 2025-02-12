@@ -552,7 +552,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-muted-foreground">contato@nexorax.com</p>
+                    <p className="text-muted-foreground">nexorax1@gmail.com</p>
                   </div>
                 </motion.div>
               </div>

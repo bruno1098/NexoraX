@@ -37,7 +37,7 @@ export default function Home() {
       <WhyChooseUs />
       <Testimonials />
       <CallToAction />
-      <Footer />
+    
     </main>
   );
 }

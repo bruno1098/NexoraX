@@ -4,6 +4,7 @@ import { poppins, montserrat } from './fonts';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import Header from '@/components/sections/Header';
+import Footer from '@/components/sections/Footer';
 import { LoadingProvider } from '@/components/providers/LoadingProvider';
 import { PageLoadingHandler } from '@/components/navigation/PageLoadingHandler';
 
@@ -22,8 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" href="/logo.png
-        " />
+        <link rel="icon" href="/logo.png" />
       </head>
       <body className={cn(
         poppins.variable,
@@ -32,9 +32,14 @@ export default function RootLayout({
       )}>
         <ThemeProvider>
           <LoadingProvider>
-            <Header />
-            <PageLoadingHandler />
-            {children}
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-1">
+                <PageLoadingHandler />
+                {children}
+              </main>
+              <Footer />
+            </div>
           </LoadingProvider>
         </ThemeProvider>
       </body>
