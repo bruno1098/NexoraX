@@ -19,8 +19,10 @@ const nextConfig = {
     // Adicione essa configuração para lidar com arquivos JSON
     config.module.rules.push({
       test: /\.json$/,
-      type: 'javascript/auto',
-      use: ['json-loader']
+      type: 'asset/resource',
+      generator: {
+        filename: 'static/json/[hash][ext]',
+      },
     });
     return config;
   },

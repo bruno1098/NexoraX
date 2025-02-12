@@ -29,6 +29,7 @@ export default function Header() {
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
     
     // Se estiver em outra página que não seja a home
     if (pathname !== '/') {
@@ -38,12 +39,13 @@ export default function Header() {
         const elementId = href.split('#')[1];
         const element = document.getElementById(elementId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          });
         }
       } else {
         await navigate(href);
       }
-      setIsMobileMenuOpen(false);
       return;
     }
 
@@ -52,7 +54,6 @@ export default function Header() {
     const element = document.getElementById(elementId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
     }
   };
 

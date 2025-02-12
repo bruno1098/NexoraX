@@ -9,23 +9,22 @@ export function useNavigation() {
   const pathname = usePathname();
   const { startLoading, stopLoading } = useLoading();
 
-  useEffect(() => {
-    stopLoading();
-  }, [pathname, stopLoading]);
-
   const navigate = async (path: string) => {
     if (path === pathname) return;
     
     try {
-      startLoading(); // Inicia o loading imediatamente
-      
-      // Pequeno timeout para garantir que o loading seja exibido
-      await new Promise(resolve => setTimeout(resolve, 100));
+      startLoading();
       
       // Navega para a nova página
-      await router.push(path);
+      router.push(path);
+      
+      // Adiciona um timeout para parar o loading após a navegação
+      setTimeout(() => {
+        stopLoading();
+      }, 500);
     } catch (error) {
       console.error('Erro na navegação:', error);
+      stopLoading(); // Garante que o loading pare mesmo em caso de erro
     }
   };
 
