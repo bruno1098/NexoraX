@@ -16,10 +16,7 @@ import {
 
 const Player = dynamicImport(
   () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
-  { 
-    ssr: false,
-    loading: () => <div className="w-full h-64 bg-muted/10 rounded-lg animate-pulse" />
-  }
+  { ssr: false }
 );
 
 const steps = [
@@ -51,7 +48,7 @@ const steps = [
     icon: Users,
     title: "5. Validação e Testes",
     description: "Realizamos testes rigorosos e validações com usuários reais para garantir a qualidade do produto.",
-    video: "/animations/AnimationTest.json"
+    video: "/animations/AnimationTest2.json"
   },
   {
     icon: Rocket,
