@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
+import { type DynamicOptions, type Loader } from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import { 
   Code, Server, Database, Globe, 
   ShoppingCart, Calendar, BarChart, Cloud,
@@ -11,13 +12,23 @@ import {
 import Header from '@/components/sections/Header';
 import { usePageLoading } from '@/hooks/usePageLoading';
 
-// Importar todas as animações
-import landingPageAnim from '@/public/animations/Animation - 1739299512900.json';
-import scheduleAnim from '@/public/animations/AnimationSchedule.json';
-import dashboardAnim from '@/public/animations/AnimationDashboard.json';
-import mobileAnim from '@/public/animations/AnimationMobile.json';
-import erpAnim from '@/public/animations/AnimationErp.json';
-import chatAnim from '@/public/animations/AnimationChatAd.json';
+// Importar o Player de forma dinâmica com loading fallback
+const Player = dynamicImport(
+  () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-64 bg-muted/10 rounded-lg animate-pulse" />
+  }
+);
+
+const animations = {
+  landingPage: "/animations/Animation - 1739299512900.json",
+  schedule: "/animations/AnimationSchedule.json",
+  dashboard: "/animations/AnimationDashboard.json",
+  mobile: "/animations/AnimationMobile.json",
+  erp: "/animations/AnimationErp.json",
+  chat: "/animations/AnimationChatAd.json"
+};
 
 const allServices = [
   // Serviços Web
@@ -28,7 +39,7 @@ const allServices = [
     services: [
       {
         title: "Landing Pages",
-        animation: landingPageAnim,
+        animation: animations.landingPage,
         description: "Páginas otimizadas para conversão com design responsivo e alta performance",
         features: [
           "Design personalizado",
@@ -66,7 +77,7 @@ const allServices = [
     services: [
       {
         title: "Agenda Online",
-        animation: scheduleAnim,
+        animation: animations.schedule,
         description: "Sistema completo para gestão de horários e clientes",
         features: [
           "Agendamento automático",
@@ -104,7 +115,7 @@ const allServices = [
     services: [
       {
         title: "Dashboards & BI",
-        animation: dashboardAnim,
+        animation: animations.dashboard,
         description: "Visualização de dados e inteligência de negócios",
         features: [
           "Dashboards personalizados",
@@ -119,7 +130,7 @@ const allServices = [
       },
       {
         title: "ERP Personalizado",
-        animation: erpAnim,
+        animation: animations.erp,
         description: "Sistema integrado de gestão empresarial",
         features: [
           "Gestão financeira",
@@ -143,7 +154,7 @@ const allServices = [
     services: [
       {
         title: "Aplicativos Corporativos",
-        animation: mobileAnim,
+        animation: animations.mobile,
         description: "Apps empresariais para otimizar processos internos",
         features: [
           "Apps iOS e Android",
@@ -181,7 +192,7 @@ const allServices = [
     services: [
       {
         title: "Chatbots Inteligentes",
-        animation: chatAnim,
+        animation: animations.chat,
         description: "Assistentes virtuais personalizados com IA para otimizar o atendimento 24/7",
         features: [
           "Integração com WhatsApp",
@@ -196,7 +207,7 @@ const allServices = [
       },
       {
         title: "Gestão de Anúncios",
-        animation: chatAnim,
+        animation: animations.chat,
         description: "Sistema completo para gerenciamento e otimização de campanhas publicitárias",
         features: [
           "Automação de campanhas",

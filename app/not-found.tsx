@@ -1,11 +1,19 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamicImport from 'next/dynamic';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 import { Home, Rocket } from 'lucide-react';
 import Link from 'next/link';
+
+const Player = dynamicImport(
+  () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-64 bg-muted/10 rounded-lg animate-pulse" />
+  }
+);
 
 export default function NotFound() {
   const { theme } = useTheme();

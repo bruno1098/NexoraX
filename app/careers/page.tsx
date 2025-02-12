@@ -1,18 +1,37 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamicImport from 'next/dynamic';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { 
   Briefcase, Code, Heart, Users, Rocket, Brain, 
   GraduationCap, Coffee, Target, Zap, Send,
   MessageSquare, TrendingUp, Star, ChevronRight, Building, Clock, MapPin, DollarSign,
-  Smile, Award, BarChart
+  Smile, Award, BarChart, LucideIcon
 } from 'lucide-react';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+
+const Player = dynamicImport(
+  () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-64 bg-muted/10 rounded-lg animate-pulse" />
+  }
+);
+
+interface CultureItem {
+  title: string;
+  description: string;
+  animation: string;
+}
+
+interface BenefitItem {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
 
 const stats = [
   { number: "96%", label: "Satisfação dos Colaboradores" },
@@ -20,7 +39,30 @@ const stats = [
   { number: "32h", label: "Média de Treinamento Mensal" }
 ];
 
-const benefits = [
+const culture: CultureItem[] = [
+  {
+    title: "Inovação Constante",
+    description: "Buscamos sempre as melhores tecnologias e práticas",
+    animation: "https://assets10.lottiefiles.com/private_files/lf30_wqypnpu5.json"
+  },
+  {
+    title: "Trabalho em Equipe",
+    description: "Colaboração e sinergia em todos os projetos",
+    animation: "https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json"
+  },
+  {
+    title: "Crescimento",
+    description: "Oportunidades de desenvolvimento profissional",
+    animation: "https://assets8.lottiefiles.com/packages/lf20_6gqtyxsc.json"
+  },
+  {
+    title: "Qualidade",
+    description: "Excelência em tudo que fazemos",
+    animation: "https://assets3.lottiefiles.com/packages/lf20_touohxv0.json"
+  }
+];
+
+const benefits: BenefitItem[] = [
   {
     icon: Coffee,
     title: "Ambiente Flexível",
@@ -174,28 +216,14 @@ const testimonials = [
   }
 ];
 
-const culture = [
-  {
-    title: "Inovação Constante",
-    description: "Incentivamos novas ideias e soluções criativas. Aqui, cada membro da equipe tem voz ativa no processo de inovação.",
-    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80"
-  },
-  {
-    title: "Desenvolvimento Contínuo",
-    description: "Investimos fortemente no crescimento profissional e pessoal de nossa equipe através de treinamentos e mentoria.",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80"
-  },
-  {
-    title: "Trabalho Remoto",
-    description: "Acreditamos que talento não tem localização. Nossa cultura remote-first permite que você trabalhe de onde estiver.",
-    image: "https://images.unsplash.com/photo-1591382696684-38c427c7547a?auto=format&fit=crop&q=80"
-  },
-  {
-    title: "Equilíbrio",
-    description: "Valorizamos o equilíbrio entre trabalho e vida pessoal, com horários flexíveis e respeito ao tempo de cada um.",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80"
-  }
-];
+
+const BenefitCard = ({ benefit }: { benefit: BenefitItem }) => (
+  <div className="p-6 rounded-xl bg-card">
+    <benefit.icon className="w-8 h-8 text-primary mb-4" />
+    <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+    <p className="text-muted-foreground">{benefit.description}</p>
+  </div>
+);
 
 export default function CareersPage() {
   const { theme } = useTheme();
@@ -314,15 +342,20 @@ export default function CareersPage() {
                     : "bg-card/50 hover:bg-card/80"
                 )}
               >
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-300 hover:scale-110"
+                <div className="relative h-69 w-full flex items-center justify-center">
+                  <Player
+                    autoplay
+                    loop
+                    src={item.animation}
+                    style={{ 
+                      width: '60%',
+                      height: '60%',
+                      objectFit: 'cover',
+                      transform: 'translateY(-20px)'
+                    }}
                   />
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-4 md:p-6 mt-4">
                   <h3 className={cn(
                     "text-lg md:text-xl font-semibold mb-2 md:mb-3",
                     theme === 'light' ? "text-white" : "text-foreground"
@@ -369,21 +402,7 @@ export default function CareersPage() {
                     : "bg-card/50 hover:bg-card/80"
                 )}
               >
-                <benefit.icon className={cn(
-                  "w-8 h-8 mb-4",
-                  theme === 'light' ? "text-white" : "text-primary"
-                )} />
-                <h3 className={cn(
-                  "text-xl font-semibold mb-2",
-                  theme === 'light' ? "text-white" : "text-foreground"
-                )}>
-                  {benefit.title}
-                </h3>
-                <p className={cn(
-                  theme === 'light' ? "text-white/80" : "text-muted-foreground"
-                )}>
-                  {benefit.description}
-                </p>
+                <BenefitCard benefit={benefit} />
               </motion.div>
             ))}
           </div>
@@ -476,12 +495,16 @@ export default function CareersPage() {
                 )}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                    <Image
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mb-10px">
+                    <Player
+                      autoplay
+                      loop
                       src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
+                      style={{ 
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
                     />
                   </div>
                   <div>

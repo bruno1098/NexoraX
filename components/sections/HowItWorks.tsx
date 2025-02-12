@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamicImport from 'next/dynamic';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 import { 
@@ -13,8 +13,14 @@ import {
   Users,
   CheckCircle
 } from 'lucide-react';
-import proposalAnim from '../../public/animations/AnimationProposal.json';
-import testAnim from '../../public/animations/Animationtest.json';
+
+const Player = dynamicImport(
+  () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-64 bg-muted/10 rounded-lg animate-pulse" />
+  }
+);
 
 const steps = [
   {
@@ -33,7 +39,7 @@ const steps = [
     icon: Presentation,
     title: "3. Proposta e MVP",
     description: "Apresentamos uma proposta detalhada com cronograma e custos, incluindo um MVP (Produto Mínimo Viável) para validação.",
-    video: proposalAnim
+    video: "/animations/AnimationProposal.json"
   },
   {
     icon: Code,
@@ -45,7 +51,7 @@ const steps = [
     icon: Users,
     title: "5. Validação e Testes",
     description: "Realizamos testes rigorosos e validações com usuários reais para garantir a qualidade do produto.",
-    video: testAnim
+    video: "/animations/AnimationTest.json"
   },
   {
     icon: Rocket,

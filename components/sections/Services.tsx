@@ -5,19 +5,27 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Code } from 'lucide-react';
-import { Player } from '@lottiefiles/react-lottie-player';
-import codingAnimation from '../../public/animations/coding.json';
+import dynamicImport from 'next/dynamic';
 import { useTheme } from '@/components/providers/ThemeProvider';
-import landingPageAnim from '../../public/animations/Animation - 1739299512900.json';
-import scheduleAnim from '../../public/animations/AnimationSchedule.json';
-import dashboardAnim from '../../public/animations/AnimationBusiness.json';
-import mobileAnim from '../../public/animations/AnimationMobile.json';
 import { isBrowser } from '@/lib/utils';
 
-gsap.registerPlugin(ScrollTrigger);
+const Player = dynamicImport(
+  () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
+  { ssr: false }
+);
+
+const animations = {
+  coding: "/animations/coding.json",
+  landingPage: "/animations/Animation - 1739299512900.json",
+  schedule: "/animations/AnimationSchedule.json",
+  dashboard: "/animations/AnimationBusiness.json",
+  mobile: "/animations/AnimationMobile.json",
+  erp: "/animations/AnimationErp.json",
+  chat: "/animations/AnimationChatAd.json"
+};
+
 type ServiceType = {
-  animation: any;
-  isUrl?: boolean;
+  animation: string;
   title: string;
   description: string;
   features: string[];
@@ -27,8 +35,7 @@ type ServiceType = {
 
 const services: ServiceType[] = [
   {
-    animation: landingPageAnim,
-    isUrl: false,
+    animation: animations.landingPage,
     title: 'Landing Pages e Sites Institucionais',
     description: 'Páginas otimizadas para conversão e sites profissionais que representam sua marca.',
     features: [
@@ -42,8 +49,7 @@ const services: ServiceType[] = [
     align: 'left'
   },
   {
-    animation: scheduleAnim,
-    isUrl: false,
+    animation: animations.schedule,
     title: 'Sistemas de Agendamento Online',
     description: 'Plataforma completa para gestão de agenda, clientes e serviços.',
     features: [
@@ -57,8 +63,7 @@ const services: ServiceType[] = [
     align: 'right'
   },
   {
-    animation: dashboardAnim,
-    isUrl: false,
+    animation: animations.dashboard,
     title: 'Sistemas de Gestão Empresarial',
     description: 'Dashboards inteligentes e ERP completo para visualização de dados e tomada de decisões estratégicas.',
     features: [
@@ -72,8 +77,7 @@ const services: ServiceType[] = [
     align: 'left'
   },
   {
-    animation: mobileAnim,
-    isUrl: false,
+    animation: animations.mobile,
     title: 'Aplicativos Mobile',
     description: 'Apps nativos e híbridos para iOS e Android que transformam sua ideia em realidade.',
     features: [
@@ -88,6 +92,22 @@ const services: ServiceType[] = [
   }
 ];
 
+const ServiceComponent = ({ service }: { service: ServiceType }) => {
+  return (
+    <div>
+      <div className="w-full h-64 relative">
+        <Player
+          autoplay
+          loop
+          src={service.animation}
+          style={{ width: '100%', height: '100%' }}
+        />
+      </div>
+      {/* ... resto do componente ... */}
+    </div>
+  );
+};
+
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
   const { theme } = useTheme();
@@ -99,41 +119,44 @@ export default function Services() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   useEffect(() => {
-    if (!isBrowser()) return;
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      if (!isBrowser()) return;
 
-    const ctx = gsap.context(() => {
-      services.forEach((_, index) => {
-        gsap.from(`.service-card-${index}`, {
-          scrollTrigger: {
-            trigger: `.service-card-${index}`,
-            start: 'top bottom-=100',
-            end: 'bottom top+=100',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          x: index % 2 === 0 ? -100 : 100,
-          duration: 1,
-          ease: "power3.out"
+      const ctx = gsap.context(() => {
+        services.forEach((_, index) => {
+          gsap.from(`.service-card-${index}`, {
+            scrollTrigger: {
+              trigger: `.service-card-${index}`,
+              start: 'top bottom-=100',
+              end: 'bottom top+=100',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            x: index % 2 === 0 ? -100 : 100,
+            duration: 1,
+            ease: "power3.out"
+          });
         });
-      });
-    }, sectionRef);
+      }, sectionRef);
 
-    // Adicionar efeito de mouse
-    const section = sectionRef.current;
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      section.style.setProperty('--mouse-x', `${x}%`);
-      section.style.setProperty('--mouse-y', `${y}%`);
-    };
+      // Adicionar efeito de mouse
+      const section = sectionRef.current;
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        section.style.setProperty('--mouse-x', `${x}%`);
+        section.style.setProperty('--mouse-y', `${y}%`);
+      };
 
-    section?.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      ctx.revert();
-      section?.removeEventListener('mousemove', handleMouseMove);
-    };
+      section?.addEventListener('mousemove', handleMouseMove);
+      return () => {
+        ctx.revert();
+        section?.removeEventListener('mousemove', handleMouseMove);
+      };
+    }
   }, []);
 
   return (
@@ -208,7 +231,7 @@ export default function Services() {
               >
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl hover-3d">
                   <Player
-                    src={service.isUrl ? service.animation : service.animation}
+                    src={service.animation}
                     autoplay
                     loop
                     className="w-full h-[400px] object-cover"
@@ -217,7 +240,7 @@ export default function Services() {
                   
                   <div className="absolute top-4 right-4 w-24 h-24">
                     <Player
-                      src={codingAnimation}
+                      src={animations.coding}
                       autoplay
                       loop
                     />

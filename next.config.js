@@ -16,6 +16,12 @@ const nextConfig = {
   },
   webpack: (config) => {
     config.externals = [...config.externals, { canvas: 'canvas' }];  // Required for Three.js
+    // Adicione essa configuração para lidar com arquivos JSON
+    config.module.rules.push({
+      test: /\.json$/,
+      type: 'javascript/auto',
+      use: ['json-loader']
+    });
     return config;
   },
   // Configuração de imagens
