@@ -45,7 +45,7 @@ const services: ServiceType[] = [
       'Integração com Analytics',
       'CMS para gestão de conteúdo'
     ],
-    stats: '+ de 50 sites entregues',
+    stats: 'Sites modernos e otimizados',
     align: 'left'
   },
   {
@@ -59,7 +59,7 @@ const services: ServiceType[] = [
       'Gestão de clientes',
       'Relatórios detalhados'
     ],
-    stats: '+ de 100 mil agendamentos',
+    stats: 'Sistema completo e intuitivo',
     align: 'right'
   },
   {
@@ -73,7 +73,7 @@ const services: ServiceType[] = [
       'KPIs automatizados',
       'Business Intelligence'
     ],
-    stats: '+ de 1000 empresas atendidas',
+    stats: 'Gestão inteligente para seu negócio',
     align: 'left'
   },
   {
@@ -87,7 +87,7 @@ const services: ServiceType[] = [
       'Push notifications',
       'Analytics e métricas'
     ],
-    stats: '+ de 30 apps publicados',
+    stats: 'Apps modernos e funcionais',
     align: 'right'
   }
 ];

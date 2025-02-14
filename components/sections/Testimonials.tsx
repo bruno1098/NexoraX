@@ -4,124 +4,139 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, Shield, Clock, HeartHandshake, Zap, Target, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/components/providers/ThemeProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const testimonials = [
-  {
-    name: 'João Silva',
-    role: 'CEO, TechVentures',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80',
-    text: 'A Nexora transformou completamente nossa operação digital. O sistema desenvolvido superou todas as expectativas.',
-  },
-  {
-    name: 'Maria Santos',
-    role: 'Diretora, FoodTech',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80',
-    text: 'Excelente trabalho! O app de delivery revolucionou nosso restaurante e aumentou nossas vendas em 200%.',
-  },
-  {
-    name: 'Pedro Costa',
-    role: 'Fundador, E-Shop',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80',
-    text: 'Nossa plataforma de e-commerce ficou incrível! Performance excepcional e conversões acima da média.',
-  },
-];
 
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { theme } = useTheme();
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animação do título
-      gsap.from('.testimonials-title', {
-        scrollTrigger: {
-          trigger: '.testimonials-title',
-          start: 'top bottom-=100',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.5,
-      });
-
-      // Animação dos cards
-      const cards = gsap.utils.toArray<HTMLElement>('.testimonial-card');
-      cards.forEach((card, index) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom-=50',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.5,
-          delay: index * 0.1,
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section 
-      ref={sectionRef} 
-      id="testimonials"
-      className="section-padding bg-gradient-to-b from-background to-card"
-    >
-      <div className="container">
-        <div className="testimonials-title text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-6">
-            O Que Nossos <span className="text-gradient-animated">Clientes Dizem</span>
+    <section className="section-padding relative overflow-hidden">
+      <div className="container relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Nosso <span className="text-gradient-animated">Compromisso</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Histórias reais de empresas que transformaram seus negócios com nossas soluções
+            Como uma empresa nova, nossa prioridade é superar suas expectativas
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              icon: Shield,
+              title: "Qualidade Garantida",
+              description: "Comprometimento com excelência técnica e código limpo em cada linha escrita.",
+              gradient: "from-[#af40ff] via-[#5b42f3] to-[#00ddeb]",
+              buttonText: "Padrões"
+            },
+            {
+              icon: HeartHandshake,
+              title: "Atendimento Próximo",
+              description: "Comunicação clara e acompanhamento personalizado durante todo o projeto.",
+              gradient: "from-[#ff4040] via-[#f34242] to-[#eb0000]",
+              buttonText: "Processo"
+            },
+            {
+              icon: Clock,
+              title: "Prazos Respeitados",
+              description: "Entregas pontuais e transparência total no cronograma de desenvolvimento.",
+              gradient: "from-[#40ff8d] via-[#42f374] to-[#00eb6a]",
+              buttonText: "Cronograma"
+            }
+          ].map((item, index) => (
+            <motion.div
               key={index}
-              className={cn(
-                "testimonial-card group rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2",
-                theme === 'light' 
-                  ? "bg-white" 
-                  : "bg-card"
-              )}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+              className="relative h-[330px] rounded-2xl overflow-hidden"
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-full overflow-hidden">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-full h-full object-cover"
-                    />
+              {/* Card Background with Animated Waves */}
+              <div className="absolute inset-0 bg-background/10 backdrop-blur-sm" />
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className={cn(
+                    "absolute w-[540px] h-[700px] opacity-60 left-0 top-0 -ml-[50%] -mt-[70%] rounded-[40%]",
+                    `bg-gradient-to-r ${item.gradient}`
+                  )}
+                  animate={{
+                    rotate: 360
+                  }}
+                  transition={{
+                    duration: 20 + i * 5,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+              ))}
+
+              {/* Card Content */}
+              <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 text-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-6"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
+                    <item.icon className={cn(
+                      "w-16 h-16 relative z-10",
+                      theme === 'light' ? "text-foreground" : "text-white"
+                    )} />
                   </div>
-                  <Quote className={cn(
-                    "absolute -bottom-2 -right-2 w-6 h-6 text-primary p-1 rounded-full",
-                    theme === 'light' ? "bg-white" : "bg-card"
-                  )} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">{testimonial.name}</h3>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
+                </motion.div>
+
+                <motion.h3
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className={cn(
+                    "text-xl font-semibold mb-4",
+                    theme === 'light' ? "text-foreground" : "text-white"
+                  )}
+                >
+                  {item.title}
+                </motion.h3>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className={cn(
+                    theme === 'light' ? "text-foreground/80" : "text-white/80"
+                  )}
+                >
+                  {item.description}
+                </motion.p>
+
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={cn(
+                    "mt-6 px-6 py-2 rounded-full backdrop-blur-md border transition-colors",
+                    theme === 'light' 
+                      ? "bg-foreground/10 text-foreground border-foreground/20 hover:bg-foreground/20" 
+                      : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+                  )}
+                >
+                  {item.buttonText}
+                </motion.button>
               </div>
-              <p className="text-muted-foreground mb-4">{testimonial.text}</p>
-              <div className="flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                ))}
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

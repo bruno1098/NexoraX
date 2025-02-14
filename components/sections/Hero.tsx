@@ -75,8 +75,8 @@ export default function Hero() {
             </h1>
             
             <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-xl mt-10">
-              Desenvolvemos sistemas personalizados para empresas de todos os tamanhos. 
-              Do e-commerce ao sistema de gestão, criamos soluções que aceleram seu crescimento.
+              Uma nova empresa de tecnologia focada em desenvolver soluções personalizadas 
+              e inovadoras. Do site ao sistema completo, transformamos suas ideias em realidade.
             </p>
 
             <div className="hero-cta flex flex-wrap items-center gap-4">
@@ -123,8 +123,8 @@ export default function Hero() {
                   <div className="flex items-center gap-3">
                     <Server className="w-8 h-8 text-primary" />
                     <div>
-                      <p className="text-sm font-medium">Alta Performance</p>
-                      <p className="text-xs text-muted-foreground">99.9% uptime</p>
+                      <p className="text-sm font-medium">Tecnologia Moderna</p>
+                      <p className="text-xs text-muted-foreground">Stack Atualizada</p>
                     </div>
                   </div>
                 </motion.div>
@@ -137,8 +137,8 @@ export default function Hero() {
                   <div className="flex items-center gap-3">
                     <Database className="w-8 h-8 text-primary" />
                     <div>
-                      <p className="text-sm font-medium">100+ Projetos</p>
-                      <p className="text-xs text-muted-foreground">Entregues</p>
+                      <p className="text-sm font-medium">Inovação</p>
+                      <p className="text-xs text-muted-foreground">Soluções Criativas</p>
                     </div>
                   </div>
                 </motion.div>

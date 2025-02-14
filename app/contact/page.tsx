@@ -25,7 +25,8 @@ import {
   Calculator,
   FileCheck,
   Linkedin,
-  Instagram
+  Instagram,
+  ArrowRight
 } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import dynamicImport from 'next/dynamic';
@@ -363,39 +364,97 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={cn(
-                  "relative group p-8 rounded-xl backdrop-blur-md border border-primary/20",
-                  "transform-gpu transition-all duration-300 hover:shadow-lg hover:shadow-primary/20",
-                  "bg-card/50 hover:bg-card/80"
-                )}
+                className="relative h-[600px] rounded-2xl overflow-hidden group"
               >
-                {/* Efeito de gradiente no hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 rounded-xl" />
-                </div>
+                {/* Background com ondas animadas */}
+                <div className="absolute inset-0 bg-background/10 backdrop-blur-sm" />
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={cn(
+                      "absolute w-[540px] h-[700px] opacity-40 left-0 top-0 -ml-[50%] -mt-[70%] rounded-[40%]",
+                      `bg-gradient-to-r ${
+                        index === 0
+                          ? "from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]"
+                          : index === 1
+                          ? "from-[#8b5cf6] via-[#7c3aed] to-[#6d28d9]"
+                          : "from-[#ec4899] via-[#db2777] to-[#be185d]"
+                      }`
+                    )}
+                    animate={{
+                      rotate: 360
+                    }}
+                    transition={{
+                      duration: 20 + i * 5,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                  />
+                ))}
 
                 {/* Conteúdo do card */}
-                <div className="relative z-10">
-                  <div className="flex items-center justify-center mb-6">
+                <div className="relative z-10 h-full flex flex-col p-8">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-center justify-center mb-6"
+                  >
                     <Player
                       autoplay
                       loop
                       src={plano.animation}
                       className="w-32 h-32"
                     />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-center mb-2">{plano.titulo}</h3>
-                  <p className="text-muted-foreground text-center mb-6">{plano.descricao}</p>
-                  
-                  <ul className="space-y-4 mb-8">
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-center"
+                  >
+                    <h3 className={cn(
+                      "text-2xl font-bold mb-2",
+                      theme === 'light' ? "text-foreground" : "text-white"
+                    )}>
+                      {plano.titulo}
+                    </h3>
+                    <p className={cn(
+                      "mb-6",
+                      theme === 'light' ? "text-muted-foreground" : "text-white/80"
+                    )}>
+                      {plano.descricao}
+                    </p>
+                  </motion.div>
+
+                  <motion.ul
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="space-y-4 mb-8 flex-grow"
+                  >
                     {plano.recursos.map((recurso, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm">{recurso}</span>
-                      </li>
+                      <motion.li
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 + i * 0.1 }}
+                        className="flex items-start gap-2"
+                      >
+                        <CheckCircle className={cn(
+                          "w-5 h-5 shrink-0 mt-0.5",
+                          theme === 'light' ? "text-primary" : "text-white"
+                        )} />
+                        <span className={cn(
+                          "text-sm",
+                          theme === 'light' ? "text-foreground/80" : "text-white/80"
+                        )}>
+                          {recurso}
+                        </span>
+                      </motion.li>
                     ))}
-                  </ul>
+                  </motion.ul>
 
                   <motion.button
                     whileHover={{ scale: 1.02 }}
@@ -407,14 +466,63 @@ export default function Contact() {
                       });
                     }}
                     className={cn(
-                      "w-full p-4 rounded-lg font-medium",
-                      "bg-primary/10 hover:bg-primary/20 text-primary",
-                      "transition-all duration-300",
-                      "flex items-center justify-center gap-2"
+                      "group relative w-full p-4 rounded-lg font-medium overflow-hidden",
+                      "backdrop-blur-md transition-all duration-300",
+                      "flex items-center justify-center gap-3",
+                      theme === 'light'
+                        ? "bg-gradient-to-r from-foreground/80 to-foreground text-background hover:from-foreground hover:to-foreground/80"
+                        : "bg-gradient-to-r from-white/90 to-white text-background hover:from-white hover:to-white/90",
                     )}
                   >
-                    <MessageSquare className="w-5 h-5" />
-                    Solicitar Proposta
+                    {/* Efeito de brilho */}
+                    <div className="absolute inset-0 w-1/2 h-full transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    
+                    {/* Bordas com gradiente */}
+                    <div className="absolute inset-0 rounded-lg p-[1px] bg-gradient-to-r from-primary/50 via-secondary/50 to-accent/50">
+                      <div className={cn(
+                        "h-full w-full rounded-lg",
+                        theme === 'light'
+                          ? "bg-gradient-to-r from-foreground/80 to-foreground"
+                          : "bg-gradient-to-r from-white/90 to-white"
+                      )} />
+                    </div>
+
+                    {/* Ícone animado */}
+                    <div className="relative">
+                      <MessageSquare className={cn(
+                        "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
+                        theme === 'light' ? "text-background" : "text-background"
+                      )} />
+                      <div className="absolute inset-0 blur-sm opacity-50 group-hover:opacity-100 transition-opacity">
+                        <MessageSquare className="w-5 h-5 text-primary" />
+                      </div>
+                    </div>
+
+                    {/* Texto com efeito */}
+                    <span className="relative font-semibold">
+                      Solicitar Proposta
+                      <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                    </span>
+
+                    {/* Seta animada */}
+                    <motion.div
+                      className="relative"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ArrowRight className={cn(
+                        "w-5 h-5 transition-transform duration-300 group-hover:translate-x-1",
+                        theme === 'light' ? "text-background" : "text-background"
+                      )} />
+                      <div className="absolute inset-0 blur-sm opacity-50 group-hover:opacity-100 transition-opacity">
+                        <ArrowRight className="w-5 h-5 text-primary" />
+                      </div>
+                    </motion.div>
                   </motion.button>
                 </div>
               </motion.div>

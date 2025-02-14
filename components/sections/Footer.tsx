@@ -25,7 +25,6 @@ const footerLinks = {
   legal: [
     { label: 'Termos de Uso', href: '/legal/terms' },
     { label: 'Privacidade', href: '/legal/privacy' },
-    { label: 'Cookies', href: '/legal/cookies' },
     { label: 'FAQ', href: '/legal/faq' },
   ],
   social: [
@@ -184,7 +183,7 @@ export default function Footer() {
           className="text-center mt-12"
         >
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} . Todos os direitos reservados.
+            © {new Date().getFullYear()} NexoraX. Todos os direitos reservados.
           </p>
         </motion.div>
       </div>

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { useSpring, animated, SpringValue } from 'react-spring';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Rocket, 
-  Shield, 
-  Zap, 
+import {
+  Rocket,
+  Shield,
+  Zap,
   Users,
   HeartHandshake,
   Trophy,
@@ -49,15 +49,15 @@ const reasons = [
   {
     icon: Rocket,
     title: 'Soluções Personalizadas',
-    description: 'Sistemas 100% adaptados ao seu negócio, desenvolvidos para atender suas necessidades específicas.',
-    stats: '+ de 50 projetos personalizados entregues',
+    description: 'Sistemas adaptados ao seu negócio, desenvolvidos com tecnologias modernas.',
+    stats: 'Projetos 100% personalizados',
     highlight: 'Cada projeto é único como seu negócio'
   },
   {
     icon: Shield,
     title: 'Tecnologia de Ponta',
     description: 'Utilizamos as mais modernas tecnologias e frameworks para garantir performance e segurança.',
-    stats: '99.9% de uptime em nossos sistemas',
+    stats: 'Stack tecnológico atual',
     highlight: 'Sempre atualizados com as últimas tecnologias'
   },
   {
@@ -70,44 +70,44 @@ const reasons = [
   {
     icon: Users,
     title: 'Time Especializado',
-    description: 'Equipe altamente qualificada com vasta experiência em desenvolvimento de software.',
-    stats: '+ de 15 especialistas dedicados',
-    highlight: 'Profissionais certificados e experientes'
+    description: 'Equipe jovem e dinâmica com conhecimento em desenvolvimento de software.',
+    stats: 'Equipe dedicada ao seu projeto',
+    highlight: 'Profissionais atualizados e comprometidos'
   },
   {
     icon: HeartHandshake,
     title: 'Suporte Dedicado',
-    description: 'Acompanhamento contínuo do projeto com suporte técnico especializado 24/7.',
-    stats: 'Tempo médio de resposta: 1h',
+    description: 'Acompanhamento próximo do projeto com suporte técnico especializado.',
+    stats: 'Atendimento personalizado',
     highlight: 'Sempre prontos para ajudar'
   },
   {
     icon: Trophy,
-    title: 'Resultados Comprovados',
-    description: 'Histórico de sucesso com cases reais de transformação digital em diversos setores.',
-    stats: '95% de satisfação dos clientes',
-    highlight: 'Impacto real nos negócios'
+    title: 'Foco em Resultados',
+    description: 'Comprometimento total com o sucesso do seu projeto e satisfação.',
+    stats: 'Satisfação garantida',
+    highlight: 'Seu sucesso é nossa prioridade'
   },
   {
     icon: Code,
     title: 'Código Limpo',
     description: 'Desenvolvimento com as melhores práticas de programação para garantir manutenibilidade.',
-    stats: '100% de código documentado',
+    stats: 'Código bem documentado',
     highlight: 'Qualidade em cada linha de código'
   },
   {
     icon: Clock,
     title: 'Pontualidade',
     description: 'Comprometimento com prazos e entregas dentro do cronograma estabelecido.',
-    stats: '97% dos projetos entregues no prazo',
+    stats: 'Entregas no prazo combinado',
     highlight: 'Seu projeto no tempo certo'
   },
   {
     icon: Target,
-    title: 'Foco em Resultados',
-    description: 'Desenvolvimento orientado a objetivos e métricas de negócio.',
-    stats: 'ROI médio de 300%',
-    highlight: 'Seu sucesso é nossa meta'
+    title: 'Visão Inovadora',
+    description: 'Uma nova perspectiva para desenvolvimento de software com foco em inovação.',
+    stats: 'Empresa jovem e dinâmica',
+    highlight: 'Inovação é nosso DNA'
   }
 ];
 
@@ -115,14 +115,14 @@ const Card3D = ({ reason, index }: Card3DProps) => {
   const [isHovered, setHovered] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const Icon = reason.icon;
-  
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const springs = useSpring({
-    transform: isHovered 
-      ? 'scale(1.05) skewX(0deg)' 
+    transform: isHovered
+      ? 'scale(1.05) skewX(0deg)'
       : 'scale(1) skewX(10deg)',
     config: { mass: 5, tension: 500, friction: 80 }
   });
@@ -138,11 +138,11 @@ const Card3D = ({ reason, index }: Card3DProps) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <motion.div 
+      <motion.div
         className="card-3d-content bg-white/30 backdrop-blur-md rounded-xl p-6 h-full border-b-2 border-l border-white/40 shadow-[rgba(0,0,0,0.28)_-40px_50px_30px]"
         initial={{ y: 50, opacity: 0 }}
-        whileInView={{ 
-          y: 0, 
+        whileInView={{
+          y: 0,
           opacity: 1,
           transition: {
             type: "spring",
@@ -163,20 +163,20 @@ const Card3D = ({ reason, index }: Card3DProps) => {
           <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" />
           <Icon className="w-12 h-12 text-primary relative z-10" />
         </div>
-        
+
         <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
           {reason.title}
         </h3>
-        
+
         <p className="text-muted-foreground mb-6">
           {reason.description}
         </p>
-        
+
         <motion.div
           className="bg-primary/10 rounded-lg p-4"
           initial={{ scale: 0.9, opacity: 0 }}
-          whileInView={{ 
-            scale: 1, 
+          whileInView={{
+            scale: 1,
             opacity: 1,
             transition: { delay: index * 0.3 }
           }}
@@ -196,7 +196,7 @@ export default function WhyChooseUs() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
-      
+
       const ctx = gsap.context(() => {
         const cards = document.querySelectorAll('.reason-card');
 
@@ -220,12 +220,12 @@ export default function WhyChooseUs() {
   }, []);
 
   return (
-    <section 
+    <section
       id="whyChooseUs"
       className="section-padding relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent" />
-      
+
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -238,7 +238,7 @@ export default function WhyChooseUs() {
             Por Que Escolher a <span className="text-gradient-animated">NexoraX</span>?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Combinamos expertise técnica com entendimento profundo do seu negócio
+            Uma nova empresa com visão inovadora e foco total na satisfação do cliente
           </p>
         </motion.div>
 

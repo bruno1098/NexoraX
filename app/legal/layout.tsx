@@ -1,10 +1,16 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const legalPages = [
+  { title: 'Termos de Uso', path: '/legal/terms' },
+  { title: 'Privacidade', path: '/legal/privacy' },
+  { title: 'FAQ', path: '/legal/faq' }
+];
 
 export default function LegalLayout({
   children,
@@ -12,10 +18,11 @@ export default function LegalLayout({
   children: React.ReactNode;
 }) {
   const { theme } = useTheme();
+  const pathname = usePathname();
 
   return (
     <div className={cn(
-      "min-h-screen relative overflow-hidden",
+      "min-h-screen relative overflow-hidden pt-24",
       theme === 'light' ? "animated-gradient-light" : "bg-background"
     )}>
       {theme === 'dark' && (
@@ -25,24 +32,34 @@ export default function LegalLayout({
       <div className="absolute inset-0 bg-grid-white/10" />
 
       <div className="container py-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="mb-8"
+        {/* Navegação entre páginas legais */}
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12 flex justify-center"
         >
-          <Link 
-            href="/"
-            className={cn(
-              "inline-flex items-center gap-2 transition-colors",
-              theme === 'light' 
-                ? "text-white/80 hover:text-white" 
-                : "text-muted-foreground hover:text-primary"
-            )}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Voltar para Home
-          </Link>
-        </motion.div>
+          <div className="inline-flex gap-2 p-1 rounded-lg backdrop-blur-md bg-card/30">
+            {legalPages.map((page) => (
+              <Link
+                key={page.path}
+                href={page.path}
+                className={cn(
+                  "px-4 py-2 rounded-md transition-all duration-200",
+                  pathname === page.path
+                    ? theme === 'light'
+                      ? "bg-white text-primary"
+                      : "bg-primary text-primary-foreground"
+                    : theme === 'light'
+                      ? "text-white/80 hover:text-white hover:bg-white/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-card/50"
+                )}
+              >
+                {page.title}
+              </Link>
+            ))}
+          </div>
+        </motion.nav>
+
         {children}
       </div>
     </div>
