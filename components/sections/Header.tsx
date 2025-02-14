@@ -9,6 +9,7 @@ import { Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useNavigation } from '@/hooks/useNavigation';
+import Switch from '@/components/ui/switchh';
 
 const menuItems = [
   { label: 'Início', href: '/#home' },
@@ -140,14 +141,16 @@ export default function Header() {
             >
               Fale Conosco
             </motion.a>
-            <motion.button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-muted transition-colors"
+            <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              className="hidden md:block"
             >
-              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </motion.button>
+              <Switch 
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+              />
+            </motion.div>
           </motion.div>
 
           {/* Mobile Menu Button */}
