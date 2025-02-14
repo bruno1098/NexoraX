@@ -23,7 +23,9 @@ import {
   Clock,
   Wrench,
   Calculator,
-  FileCheck
+  FileCheck,
+  Linkedin,
+  Instagram
 } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import dynamicImport from 'next/dynamic';
@@ -199,6 +201,19 @@ const atendimentos = [
 
 const planos = [
   {
+    titulo: "Individual",
+    descricao: "Ideal para profissionais autônomos e pequenas empresas",
+    icon: Users,
+    animation: "https://assets8.lottiefiles.com/packages/lf20_M9p23l.json",
+    recursos: [
+      "Suporte em horário comercial",
+      "Manutenção básica mensal",
+      "Backup semanal",
+      "Atualizações programadas",
+      "Documentação essencial"
+    ]
+  },
+  {
     titulo: "Startup",
     descricao: "Ideal para empresas em crescimento",
     icon: Building,
@@ -223,21 +238,6 @@ const planos = [
       "Atualizações sob demanda",
       "Monitoramento em tempo real",
       "Treinamento da equipe"
-    ]
-  },
-  {
-    titulo: "Enterprise",
-    descricao: "Soluções corporativas avançadas",
-    icon: Building,
-    animation: "https://assets4.lottiefiles.com/packages/lf20_3rwasyjy.json",
-    recursos: [
-      "Suporte VIP 24/7",
-      "Manutenção preventiva semanal",
-      "Backup em tempo real",
-      "Atualizações ilimitadas",
-      "Monitoramento avançado",
-      "Gerente de conta dedicado",
-      "Consultoria estratégica"
     ]
   }
 ];
@@ -400,6 +400,12 @@ export default function Contact() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      document.getElementById('contact')?.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }}
                     className={cn(
                       "w-full p-4 rounded-lg font-medium",
                       "bg-primary/10 hover:bg-primary/20 text-primary",
@@ -530,11 +536,13 @@ export default function Contact() {
                 >
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-                    <Phone className="w-6 h-6 text-primary relative z-10" />
+                    <Mail className="w-6 h-6 text-primary relative z-10" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Telefone</h3>
-                    <p className="text-muted-foreground">(11) 99999-9999</p>
+                    <h3 className="font-semibold">Email</h3>
+                    <a href="mailto:nexorax1@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                      nexorax1@gmail.com
+                    </a>
                   </div>
                 </motion.div>
 
@@ -548,11 +556,33 @@ export default function Contact() {
                 >
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-                    <Mail className="w-6 h-6 text-primary relative z-10" />
+                    <Linkedin className="w-6 h-6 text-primary relative z-10" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <p className="text-muted-foreground">nexorax1@gmail.com</p>
+                    <h3 className="font-semibold">LinkedIn</h3>
+                    <a href="https://www.linkedin.com/company/nexorax" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                      /company/nexorax
+                    </a>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  whileHover={{ scale: 1.02, rotateX: 5 }}
+                  className={cn(
+                    "flex items-center gap-4 p-6 rounded-xl backdrop-blur-md border border-primary/20",
+                    "cyber-card transform-gpu transition-all duration-300 hover:shadow-lg hover:shadow-primary/20",
+                    theme === 'light' ? "bg-white/10" : "bg-card/50"
+                  )}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
+                    <Instagram className="w-6 h-6 text-primary relative z-10" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Instagram</h3>
+                    <a href="https://www.instagram.com/_nexorax_" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                      @nexorax
+                    </a>
                   </div>
                 </motion.div>
               </div>
@@ -589,34 +619,66 @@ export default function Contact() {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Nome</label>
-                        <input
-                          type="text"
-                          className={cn(
-                            "w-full p-3 rounded-lg bg-background/50 border",
-                            "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
-                            theme === 'light' ? "border-white/20" : "border-border"
-                          )}
-                          required
-                        />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Nome Completo *</label>
+                          <input
+                            type="text"
+                            placeholder="Seu nome completo"
+                            className={cn(
+                              "w-full p-3 rounded-lg bg-background/50 border",
+                              "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                              theme === 'light' ? "border-white/20" : "border-border"
+                            )}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Email Profissional *</label>
+                          <input
+                            type="email"
+                            placeholder="seu@email.com"
+                            className={cn(
+                              "w-full p-3 rounded-lg bg-background/50 border",
+                              "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                              theme === 'light' ? "border-white/20" : "border-border"
+                            )}
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Empresa</label>
+                          <input
+                            type="text"
+                            placeholder="Nome da sua empresa"
+                            className={cn(
+                              "w-full p-3 rounded-lg bg-background/50 border",
+                              "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                              theme === 'light' ? "border-white/20" : "border-border"
+                            )}
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Cargo</label>
+                          <input
+                            type="text"
+                            placeholder="Sua função na empresa"
+                            className={cn(
+                              "w-full p-3 rounded-lg bg-background/50 border",
+                              "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                              theme === 'light' ? "border-white/20" : "border-border"
+                            )}
+                          />
+                        </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium mb-2">Email</label>
-                        <input
-                          type="email"
-                          className={cn(
-                            "w-full p-3 rounded-lg bg-background/50 border",
-                            "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
-                            theme === 'light' ? "border-white/20" : "border-border"
-                          )}
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Assunto</label>
+                        <label className="block text-sm font-medium mb-2">Tipo de Projeto *</label>
                         <select
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
@@ -625,25 +687,86 @@ export default function Contact() {
                           )}
                           required
                         >
-                          <option value="">Selecione um assunto</option>
-                          <option value="orcamento">Orçamento</option>
-                          <option value="duvida">Dúvida</option>
-                          <option value="suporte">Suporte</option>
-                          <option value="parceria">Parceria</option>
+                          <option value="">Selecione o tipo de projeto</option>
+                          <option value="landing-page">Landing Page</option>
+                          <option value="site-institucional">Site Institucional</option>
+                          <option value="ecommerce">E-commerce</option>
+                          <option value="sistema-web">Sistema Web</option>
+                          <option value="aplicativo">Aplicativo Mobile</option>
+                          <option value="automacao">Automação de Processos</option>
+                          <option value="consultoria">Consultoria Técnica</option>
+                          <option value="manutencao">Manutenção de Sistema</option>
+                          <option value="outro">Outro</option>
                         </select>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium mb-2">Mensagem</label>
-                        <textarea
+                        <label className="block text-sm font-medium mb-2">Orçamento Estimado</label>
+                        <select
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
                             "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
                             theme === 'light' ? "border-white/20" : "border-border"
                           )}
-                          rows={4}
+                        >
+                          <option value="">Selecione uma faixa de orçamento</option>
+                          <option value="ate-5k">Até R$ 5.000</option>
+                          <option value="5k-10k">R$ 5.000 - R$ 10.000</option>
+                          <option value="10k-20k">R$ 10.000 - R$ 20.000</option>
+                          <option value="20k-50k">R$ 20.000 - R$ 50.000</option>
+                          <option value="50k+">Acima de R$ 50.000</option>
+                          <option value="definir">A definir</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Prazo Desejado</label>
+                        <select
+                          className={cn(
+                            "w-full p-3 rounded-lg bg-background/50 border",
+                            "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                            theme === 'light' ? "border-white/20" : "border-border"
+                          )}
+                        >
+                          <option value="">Selecione o prazo estimado</option>
+                          <option value="urgente">Urgente (até 15 dias)</option>
+                          <option value="curto">Curto (15-30 dias)</option>
+                          <option value="medio">Médio (1-3 meses)</option>
+                          <option value="longo">Longo (3+ meses)</option>
+                          <option value="definir">A definir</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Detalhes do Projeto *</label>
+                        <textarea
+                          placeholder="Descreva seu projeto, objetivos, funcionalidades desejadas e qualquer informação relevante..."
+                          className={cn(
+                            "w-full p-3 rounded-lg bg-background/50 border",
+                            "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                            theme === 'light' ? "border-white/20" : "border-border"
+                          )}
+                          rows={6}
                           required
                         />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Como nos encontrou?</label>
+                        <select
+                          className={cn(
+                            "w-full p-3 rounded-lg bg-background/50 border",
+                            "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
+                            theme === 'light' ? "border-white/20" : "border-border"
+                          )}
+                        >
+                          <option value="">Selecione uma opção</option>
+                          <option value="google">Google</option>
+                          <option value="linkedin">LinkedIn</option>
+                          <option value="instagram">Instagram</option>
+                          <option value="indicacao">Indicação</option>
+                          <option value="outro">Outro</option>
+                        </select>
                       </div>
 
                       <motion.button
@@ -664,10 +787,14 @@ export default function Contact() {
                         ) : (
                           <>
                             <Send className="w-5 h-5" />
-                            Enviar Mensagem
+                            Enviar Solicitação
                           </>
                         )}
                       </motion.button>
+
+                      <p className="text-sm text-muted-foreground text-center mt-4">
+                        * Campos obrigatórios
+                      </p>
                     </form>
                   )}
                 </div>

@@ -29,7 +29,7 @@ const footerLinks = {
     { label: 'FAQ', href: '/legal/faq' },
   ],
   social: [
-    { label: 'Instagram', href: '#', icon: Instagram },
+    { label: 'Instagram', href: 'https://www.instagram.com/_nexorax_/', icon: Instagram },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/nexorax', icon: Linkedin },
     { label: 'GitHub', href: '#', icon: Github },
   ],
@@ -118,7 +118,7 @@ export default function Footer() {
     <footer className="section-padding bg-gradient-to-b from-background to-card">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo e Descrição */}
+         
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Redes Sociais */}
+         
           <SocialLinks />
         </div>
 
@@ -184,7 +184,7 @@ export default function Footer() {
           className="text-center mt-12"
         >
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Nexora. Todos os direitos reservados.
+            © {new Date().getFullYear()} . Todos os direitos reservados.
           </p>
         </motion.div>
       </div>
