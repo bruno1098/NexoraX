@@ -1,11 +1,18 @@
 import { NextResponse } from 'next/server';
 
-// Array para armazenar submissões (note que isso será resetado a cada deploy)
-let submissions: any[] = [];
+// Declarando a variável global
+declare global {
+  var submissions: any[];
+}
+
+// Inicializando a variável global se ainda não existir
+if (!global.submissions) {
+  global.submissions = [];
+}
 
 export async function GET() {
   try {
-    return NextResponse.json(submissions);
+    return NextResponse.json(global.submissions);
   } catch (error) {
     console.error('Erro:', error);
     return NextResponse.json(
@@ -26,8 +33,8 @@ export async function POST(request: Request) {
       ...data
     };
 
-    // Adicionar ao array de submissões
-    submissions.push(newSubmission);
+    // Adicionar ao array global de submissões
+    global.submissions.push(newSubmission);
     
     // Log da nova submissão
     console.log('Nova submissão recebida:', newSubmission);
