@@ -248,12 +248,44 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setSubmitted(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        nome: formData.get('nome'),
+        email: formData.get('email'),
+        empresa: formData.get('empresa'),
+        cargo: formData.get('cargo'),
+        tipoProjeto: formData.get('tipoProjeto'),
+        orcamento: formData.get('orcamento'),
+        prazo: formData.get('prazo'),
+        detalhes: formData.get('detalhes'),
+        origem: formData.get('origem')
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao enviar mensagem');
+      }
+
+      const result = await response.json();
+      console.log('Resposta do servidor:', result);
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Erro:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -732,6 +764,7 @@ export default function Contact() {
                           <label className="block text-sm font-medium mb-2">Nome Completo *</label>
                           <input
                             type="text"
+                            name="nome"
                             placeholder="Seu nome completo"
                             className={cn(
                               "w-full p-3 rounded-lg bg-background/50 border",
@@ -746,6 +779,7 @@ export default function Contact() {
                           <label className="block text-sm font-medium mb-2">Email Profissional *</label>
                           <input
                             type="email"
+                            name="email"
                             placeholder="seu@email.com"
                             className={cn(
                               "w-full p-3 rounded-lg bg-background/50 border",
@@ -762,6 +796,7 @@ export default function Contact() {
                           <label className="block text-sm font-medium mb-2">Empresa</label>
                           <input
                             type="text"
+                            name="empresa"
                             placeholder="Nome da sua empresa"
                             className={cn(
                               "w-full p-3 rounded-lg bg-background/50 border",
@@ -775,6 +810,7 @@ export default function Contact() {
                           <label className="block text-sm font-medium mb-2">Cargo</label>
                           <input
                             type="text"
+                            name="cargo"
                             placeholder="Sua função na empresa"
                             className={cn(
                               "w-full p-3 rounded-lg bg-background/50 border",
@@ -788,6 +824,7 @@ export default function Contact() {
                       <div>
                         <label className="block text-sm font-medium mb-2">Tipo de Projeto *</label>
                         <select
+                          name="tipoProjeto"
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
                             "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
@@ -811,6 +848,7 @@ export default function Contact() {
                       <div>
                         <label className="block text-sm font-medium mb-2">Orçamento Estimado</label>
                         <select
+                          name="orcamento"
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
                             "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
@@ -830,6 +868,7 @@ export default function Contact() {
                       <div>
                         <label className="block text-sm font-medium mb-2">Prazo Desejado</label>
                         <select
+                          name="prazo"
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
                             "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
@@ -848,6 +887,7 @@ export default function Contact() {
                       <div>
                         <label className="block text-sm font-medium mb-2">Detalhes do Projeto *</label>
                         <textarea
+                          name="detalhes"
                           placeholder="Descreva seu projeto, objetivos, funcionalidades desejadas e qualquer informação relevante..."
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
@@ -862,6 +902,7 @@ export default function Contact() {
                       <div>
                         <label className="block text-sm font-medium mb-2">Como nos encontrou?</label>
                         <select
+                          name="origem"
                           className={cn(
                             "w-full p-3 rounded-lg bg-background/50 border",
                             "focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300",
