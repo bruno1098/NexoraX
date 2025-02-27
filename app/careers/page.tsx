@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import Modal from '../../components/ui/modal';
 
 const Player = dynamicImport(
   () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
@@ -101,26 +103,13 @@ const openings = [
     department: "Tecnologia",
     icon: Code,
     jobs: [
+ 
       {
-        title: "Desenvolvedor Full Stack Sênior",
-        type: "Remoto",
-        level: "Sênior",
-        stack: ["React", "Node.js", "TypeScript", "AWS"],
-        description: "Buscamos um desenvolvedor sênior para liderar projetos complexos e mentorar o time."
-      },
-      {
-        title: "Desenvolvedor Front-end Pleno",
+        title: "Desenvolvedor Front-end Júnior",
         type: "Remoto",
         level: "Pleno",
         stack: ["React", "Next.js", "Tailwind", "TypeScript"],
-        description: "Desenvolvedor com experiência em criar interfaces modernas e responsivas."
-      },
-      {
-        title: "Desenvolvedor Back-end Pleno",
-        type: "Remoto",
-        level: "Pleno",
-        stack: ["Node.js", "Python", "PostgreSQL", "Docker"],
-        description: "Desenvolvedor para trabalhar com microsserviços e APIs escaláveis."
+        description: "Desenvolvedor com sólida experiência em criar interfaces modernas e responsivas."
       }
     ]
   },
@@ -130,18 +119,11 @@ const openings = [
     icon: TrendingUp,
     jobs: [
       {
-        title: "Social Media Manager",
-        type: "Remoto",
-        level: "Pleno",
-        stack: ["Redes Sociais", "Analytics", "SEO", "Copywriting"],
-        description: "Profissional para gerenciar nossas redes sociais e criar conteúdo engajador."
-      },
-      {
-        title: "Marketing Digital Specialist",
-        type: "Remoto",
-        level: "Sênior",
-        stack: ["Google Ads", "Facebook Ads", "Analytics", "Growth"],
-        description: "Especialista para desenvolver e executar estratégias de marketing digital."
+        title: "Nenhuma vaga disponível no momento",
+        type: "N/A",
+        level: "N/A",
+        stack: ["N/A"],
+        description: "N/A"
       }
     ]
   },
@@ -151,19 +133,13 @@ const openings = [
     icon: MessageSquare,
     jobs: [
       {
-        title: "Customer Success Manager",
-        type: "Remoto",
-        level: "Pleno/Sênior",
-        stack: ["CRM", "Atendimento", "Gestão de Contas", "Relacionamento"],
-        description: "Profissional para garantir o sucesso e satisfação dos nossos clientes."
-      },
-      {
-        title: "Suporte Técnico",
-        type: "Remoto",
-        level: "Júnior/Pleno",
-        stack: ["Suporte", "Troubleshooting", "Documentação", "Atendimento"],
-        description: "Analista para fornecer suporte técnico aos nossos clientes."
+        title: "Nenhuma vaga disponível no momento",
+        type: "N/A",
+        level: "N/A",
+        stack: ["N/A"],
+        description: "N/A"
       }
+     
     ]
   }
 ];
@@ -231,6 +207,15 @@ export default function CareersPage() {
     triggerOnce: true,
     threshold: 0.2
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen overflow-hidden">
@@ -240,7 +225,7 @@ export default function CareersPage() {
         animate={{ opacity: 1 }}
         className={cn(
           "relative py-16 md:py-32 overflow-hidden",
-          theme === 'light' ? "bg-primary" : "bg-background"
+          theme === 'light' ? "bg-primary/10" : "bg-background"
         )}
       >
         <div className="absolute inset-0 bg-grid-white/10" />
@@ -252,7 +237,7 @@ export default function CareersPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className={cn(
                   "text-3xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6",
-                  theme === 'light' ? "text-white" : "text-gradient-animated"
+                  theme === 'light' ? "text-primary" : "text-gradient-animated"
                 )}
               >
                 Faça Parte do Nosso Time
@@ -263,7 +248,7 @@ export default function CareersPage() {
                 transition={{ delay: 0.2 }}
                 className={cn(
                   "text-base md:text-xl mb-8",
-                  theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                  theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                 )}
               >
                 Junte-se a nós e faça parte de uma empresa que valoriza inovação, 
@@ -294,7 +279,7 @@ export default function CareersPage() {
                 transition={{ delay: index * 0.2 }}
                 className={cn(
                   "p-6 rounded-xl text-center",
-                  theme === 'light' ? "bg-white/10" : "bg-card/50"
+                  theme === 'light' ? "bg-card shadow-sm" : "bg-card/50"
                 )}
               >
                 <div className="text-4xl font-bold text-primary mb-2">
@@ -338,7 +323,7 @@ export default function CareersPage() {
                 className={cn(
                   "rounded-lg overflow-hidden shadow-lg transition-all duration-300 w-full",
                   theme === 'light' 
-                    ? "bg-white/10 hover:bg-white/20" 
+                    ? "bg-card shadow-md" 
                     : "bg-card/50 hover:bg-card/80"
                 )}
               >
@@ -348,7 +333,6 @@ export default function CareersPage() {
                     loop
                     src={item.animation}
                     style={{ 
-                      
                       width: '60%',
                       height: '60%',
                       objectFit: 'cover',
@@ -359,13 +343,13 @@ export default function CareersPage() {
                 <div className="p-4 md:p-6 mt-4">
                   <h3 className={cn(
                     "text-lg md:text-xl font-semibold mb-2 md:mb-3",
-                    theme === 'light' ? "text-white" : "text-foreground"
+                    theme === 'light' ? "text-foreground" : "text-foreground"
                   )}>
                     {item.title}
                   </h3>
                   <p className={cn(
                     "text-sm md:text-base",
-                    theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                    theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                   )}>
                     {item.description}
                   </p>
@@ -399,7 +383,7 @@ export default function CareersPage() {
                 className={cn(
                   "rounded-lg p-6 backdrop-blur-md transition-all duration-300",
                   theme === 'light' 
-                    ? "bg-white/10 hover:bg-white/20" 
+                    ? "bg-card shadow-sm" 
                     : "bg-card/50 hover:bg-card/80"
                 )}
               >
@@ -438,7 +422,7 @@ export default function CareersPage() {
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 z-10",
                       theme === 'light'
-                        ? "bg-white text-primary"
+                        ? "bg-primary text-white"
                         : "bg-primary text-primary-foreground"
                     )}>
                       {index + 1}
@@ -446,17 +430,17 @@ export default function CareersPage() {
                     <div className={cn(
                       "flex-1 p-6 rounded-lg",
                       theme === 'light'
-                        ? "bg-white/10"
+                        ? "bg-card shadow-sm"
                         : "bg-card/50"
                     )}>
                       <h3 className={cn(
                         "text-xl font-semibold mb-2",
-                        theme === 'light' ? "text-white" : "text-foreground"
+                        theme === 'light' ? "text-foreground" : "text-foreground"
                       )}>
                         {step.title}
                       </h3>
                       <p className={cn(
-                        theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                        theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                       )}>
                         {step.description}
                       </p>
@@ -469,66 +453,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-12 md:py-20 bg-muted/50">
-        <div className="container px-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-2xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-gradient-animated"
-          >
-            O Que Dizem Nossos Colaboradores
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={cn(
-                  "rounded-lg p-6 backdrop-blur-md",
-                  theme === 'light' 
-                    ? "bg-white/10" 
-                    : "bg-card/50"
-                )}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mb-10px">
-                    <Player
-                      autoplay
-                      loop
-                      src={testimonial.image}
-                      style={{ 
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <h3 className={cn(
-                      "font-semibold",
-                      theme === 'light' ? "text-white" : "text-foreground"
-                    )}>
-                      {testimonial.name}
-                    </h3>
-                    <p className={cn(
-                      "text-sm",
-                      theme === 'light' ? "text-white/80" : "text-muted-foreground"
-                    )}>
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-                <p>&rsquo;{testimonial.content}&rsquo;</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+ 
 
       {/* Open Positions */}
       <section id="vagas" className="py-12 md:py-20 w-full overflow-hidden">
@@ -568,7 +493,7 @@ export default function CareersPage() {
                       className={cn(
                         "rounded-lg p-4 md:p-6 backdrop-blur-md transition-all duration-300 w-full overflow-hidden",
                         theme === 'light' 
-                          ? "bg-white/10 hover:bg-white/20" 
+                          ? "bg-card shadow-sm border border-muted" 
                           : "bg-card/50 hover:bg-card/80"
                       )}
                     >
@@ -576,21 +501,21 @@ export default function CareersPage() {
                         <div className="flex-1 min-w-0">
                           <h4 className={cn(
                             "text-xl font-semibold mb-2 break-words",
-                            theme === 'light' ? "text-white" : "text-foreground"
+                            theme === 'light' ? "text-foreground" : "text-foreground"
                           )}>
                             {job.title}
                           </h4>
                           <div className="flex flex-wrap gap-2 mb-2">
                             <span className={cn(
                               "inline-flex items-center text-sm whitespace-nowrap",
-                              theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                              theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                             )}>
                               <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
                               {job.type}
                             </span>
                             <span className={cn(
                               "inline-flex items-center text-sm whitespace-nowrap",
-                              theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                              theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                             )}>
                               <Target className="w-4 h-4 mr-1 flex-shrink-0" />
                               {job.level}
@@ -598,12 +523,13 @@ export default function CareersPage() {
                           </div>
                         </div>
                         <motion.button
+                          onClick={handleOpenModal}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           className={cn(
                             "px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap",
                             theme === 'light'
-                              ? "bg-white text-primary hover:bg-white/90"
+                              ? "bg-primary text-white hover:bg-primary/90"
                               : "bg-primary text-primary-foreground hover:bg-primary/90"
                           )}
                         >
@@ -612,7 +538,7 @@ export default function CareersPage() {
                       </div>
                       <p className={cn(
                         "mb-4 break-words",
-                        theme === 'light' ? "text-white/80" : "text-muted-foreground"
+                        theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
                       )}>
                         {job.description}
                       </p>
@@ -623,7 +549,7 @@ export default function CareersPage() {
                             className={cn(
                               "px-3 py-1 rounded-full text-sm whitespace-nowrap",
                               theme === 'light'
-                                ? "bg-white/20 text-white"
+                                ? "bg-primary/10 text-primary"
                                 : "bg-primary/20 text-primary"
                             )}
                           >
@@ -650,29 +576,30 @@ export default function CareersPage() {
             className={cn(
               "rounded-lg p-8 text-center backdrop-blur-md",
               theme === 'light' 
-                ? "bg-white/10" 
+                ? "bg-card shadow-sm border border-muted" 
                 : "bg-card/50"
             )}
           >
             <h2 className={cn(
               "text-2xl md:text-3xl font-bold mb-4",
-              theme === 'light' ? "text-white" : "text-foreground"
+              theme === 'light' ? "text-foreground" : "text-foreground"
             )}>
               Não encontrou uma vaga adequada?
             </h2>
             <p className={cn(
               "mb-6",
-              theme === 'light' ? "text-white/80" : "text-muted-foreground"
+              theme === 'light' ? "text-foreground/80" : "text-muted-foreground"
             )}>
               Envie seu currículo para nosso banco de talentos e fique por dentro das próximas oportunidades
             </p>
             <motion.button
+              onClick={handleOpenModal}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={cn(
                 "inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors",
                 theme === 'light'
-                  ? "bg-white text-primary hover:bg-white/90"
+                  ? "bg-primary text-white hover:bg-primary/90"
                   : "bg-primary text-primary-foreground hover:bg-primary/90"
               )}
             >
@@ -682,6 +609,49 @@ export default function CareersPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Modal */}
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal}
+        title="Envie seu Currículo"
+      >
+        <div className="space-y-4">
+          <p className="text-muted-foreground">
+            Para se candidatar, envie seu currículo para o e-mail:
+          </p>
+          
+          <a 
+            href="mailto:nexorax1@gmail.com" 
+            className={cn(
+              "block p-3 rounded-lg text-center font-medium transition-all",
+              theme === 'light'
+                ? "bg-primary/10 text-primary hover:bg-primary/20"
+                : "bg-primary/20 text-primary hover:bg-primary/30"
+            )}
+          >
+            nexorax1@gmail.com
+          </a>
+          
+          <p className="text-muted-foreground">
+            Estamos ansiosos para conhecer você!
+          </p>
+          
+          <motion.button
+            onClick={handleCloseModal}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className={cn(
+              "w-full mt-4 p-3 rounded-lg font-medium transition-colors",
+              theme === 'light'
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
+          >
+            Fechar
+          </motion.button>
+        </div>
+      </Modal>
     </div>
   );
 }

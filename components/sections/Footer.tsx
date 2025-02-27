@@ -30,7 +30,7 @@ const footerLinks = {
   social: [
     { label: 'Instagram', href: 'https://www.instagram.com/_nexorax_/', icon: Instagram },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/nexorax', icon: Linkedin },
-    { label: 'GitHub', href: '#', icon: Github },
+  
   ],
 };
 
