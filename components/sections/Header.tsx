@@ -14,7 +14,7 @@ const menuItems = [
   { label: 'Início', href: '/#home' },
   { label: 'Serviços', href: '/#services' },
   { label: 'Como Funciona', href: '/#funciona' },
-  { label: 'Por que nós?', href: '/#why-choose-us' },
+  { label: 'Por que nós?', href: '/#whyChooseUs' },
   { label: 'Cases', href: '/#testimonials' },
   { label: 'Contato', href: '/#contact' },
 ];

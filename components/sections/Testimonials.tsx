@@ -15,7 +15,7 @@ export default function Testimonials() {
   const { theme } = useTheme();
 
   return (
-    <section className="section-padding relative overflow-hidden">
+    <section id="testimonials" className="section-padding relative overflow-hidden">
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

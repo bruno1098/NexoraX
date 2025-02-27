@@ -16,9 +16,9 @@ import { cn } from '@/lib/utils';
 
 const footerLinks = {
   company: [
-    { label: 'Sobre', href: '#about' },
+    { label: 'Sobre', href: '#whyChooseUs' },
     { label: 'Serviços', href: '#services' },
-    { label: 'Cases', href: '#cases' },
+    { label: 'Cases', href: '#testimonials' },
     { label: 'Contato', href: '#contact' },
     { label: 'Trabalhe Conosco', href: '/careers' },
   ],
@@ -90,6 +90,16 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
   >
     <motion.a
       href={href}
+      onClick={(e) => {
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const elementId = href.substring(1);
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }}
       className="text-muted-foreground hover:text-primary transition-colors relative group flex items-center gap-2"
       whileHover={{ x: 5 }}
     >
