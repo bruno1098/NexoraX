@@ -15,16 +15,16 @@ export function useNavigation() {
     try {
       startLoading();
       
-      // Navega para a nova página
+  
       router.push(path);
       
-      // Adiciona um timeout para parar o loading após a navegação
+      
       setTimeout(() => {
         stopLoading();
       }, 500);
     } catch (error) {
       console.error('Erro na navegação:', error);
-      stopLoading(); // Garante que o loading pare mesmo em caso de erro
+      stopLoading(); 
     }
   };
 

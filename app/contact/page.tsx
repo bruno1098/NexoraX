@@ -117,7 +117,6 @@ const ParticlesBackground = () => {
   );
 };
 
-// Componente de ícones flutuantes atualizado
 const FloatingIcons = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -323,7 +322,6 @@ export default function Contact() {
           </motion.div>
         </div>
 
-        {/* Mantenha os componentes de background existentes */}
         <ParticlesBackground />
         <FloatingIcons />
       </section>
@@ -370,7 +368,7 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Seção de Planos Revisada */}
+    
       <section className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div
@@ -506,7 +504,7 @@ export default function Contact() {
                         : "bg-gradient-to-r from-white/90 to-white text-background hover:from-white hover:to-white/90",
                     )}
                   >
-                    {/* Efeito de brilho */}
+                  
                     <div className="absolute inset-0 w-1/2 h-full transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                     
                     {/* Bordas com gradiente */}
@@ -519,7 +517,6 @@ export default function Contact() {
                       )} />
                     </div>
 
-                    {/* Ícone animado */}
                     <div className="relative">
                       <MessageSquare className={cn(
                         "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
@@ -530,13 +527,11 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    {/* Texto com efeito */}
                     <span className="relative font-semibold">
                       Solicitar Proposta
                       <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                     </span>
 
-                    {/* Seta animada */}
                     <motion.div
                       className="relative"
                       animate={{ x: [0, 5, 0] }}
@@ -561,7 +556,6 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* Seção de benefícios adicionais */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -664,7 +658,7 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Cards de contato com efeito cyber melhorado */}
+              {/* Cards de contato com efeito cyber */}
               <div className="space-y-4">
                 <motion.div
                   whileHover={{ scale: 1.02, rotateX: 5 }}

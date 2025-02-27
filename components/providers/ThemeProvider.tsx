@@ -15,11 +15,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Verifica a preferência do sistema
+    
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     setTheme(systemTheme);
 
-    // Observa mudanças na preferência do sistema
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
       setTheme(e.matches ? 'dark' : 'light');

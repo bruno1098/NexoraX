@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { useLoading } from '@/components/providers/LoadingProvider';
 
-// Importações dinâmicas
 const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false });
 const DynamicServices = dynamic(() => import('@/components/sections/Services'), {
   ssr: false

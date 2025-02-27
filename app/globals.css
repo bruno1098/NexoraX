@@ -77,12 +77,10 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
   }
 
-  /* Glass Card Effect */
   .glass-card {
     @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl;
   }
 
-  /* 3D Hover Effect */
   .hover-3d {
     transform-style: preserve-3d;
     transition: transform 0.3s ease;
@@ -92,7 +90,6 @@
     transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
   }
 
-  /* Floating Animation */
   .floating {
     animation: floating 3s ease-in-out infinite;
   }
@@ -102,7 +99,6 @@
     50% { transform: translateY(-20px); }
   }
 
-  /* Glow Effect */
   .glow {
     box-shadow: 0 0 20px rgba(var(--primary), 0.3);
   }
@@ -139,7 +135,6 @@
   }
 }
 
-/* Grid Pattern Background */
 .bg-grid-pattern {
   background-size: 50px 50px;
   background-image: 
@@ -147,7 +142,6 @@
     linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
 }
 
-/* Enhanced Glass Effect */
 .glass {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -155,7 +149,6 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
-/* Gradient Animations */
 .text-gradient-animated {
   background: linear-gradient(
     to right,
@@ -177,7 +170,6 @@
   }
 }
 
-/* Animated Background */
 .animated-gradient {
   background: linear-gradient(
     -45deg,
@@ -206,7 +198,6 @@
   transform: translateY(0);
 }
 
-/* Adicione estilos específicos para o modo escuro */
 [data-theme="dark"] .glass {
   background: rgba(17, 25, 40, 0.75);
   backdrop-filter: blur(4px);
@@ -253,7 +244,6 @@
   pointer-events: none;
 }
 
-/* Adicione estas animações junto com as outras */
 @keyframes gradientLight {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -289,7 +279,6 @@
   animation: gradientDark 15s ease infinite;
 }
 
-/* Adicione após as outras animações */
 @keyframes pulseGlow {
   0% { opacity: 0.3; transform: scale(0.95); }
   50% { opacity: 0.6; transform: scale(1.05); }
@@ -310,7 +299,6 @@
   animation: pulseGlow 8s ease-in-out infinite;
 }
 
-/* Substitua a animação anterior por esta */
 @keyframes serviceGlow {
   0% {
     background-position: 0% 0%;
@@ -352,7 +340,6 @@
   opacity: 0.15;
 }
 
-/* Animação do X */
 .x-animated {
   background: linear-gradient(
     to right,
@@ -399,7 +386,6 @@
   }
 }
 
-/* Ajuste para modo escuro */
 [data-theme="dark"] .x-animated::after {
   color: hsl(var(--primary));
 }

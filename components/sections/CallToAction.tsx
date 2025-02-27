@@ -17,7 +17,7 @@ export default function CallToAction() {
         ? "animated-gradient-light" 
         : "bg-background"
     )}>
-      {/* Overlay animado para o tema escuro */}
+      
       {theme === 'dark' && (
         <div className="absolute inset-0 animated-gradient-dark" />
       )}

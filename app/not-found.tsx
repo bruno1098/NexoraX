@@ -23,7 +23,6 @@ export default function NotFound() {
       "min-h-screen w-full relative overflow-hidden",
       theme === 'light' ? "animated-gradient-light" : "bg-background"
     )}>
-      {/* Fundo animado para tema escuro */}
       {theme === 'dark' && (
         <>
           <div className="absolute inset-0 animated-gradient-dark opacity-20" />
@@ -34,7 +33,6 @@ export default function NotFound() {
         </>
       )}
       
-      {/* Fundo animado para tema claro */}
       {theme === 'light' && (
         <>
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-background animate-gradient" />
@@ -49,7 +47,6 @@ export default function NotFound() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          {/* Animação Lottie principal */}
           <div className="w-full max-w-lg mx-auto">
             <Player
               autoplay
@@ -78,7 +75,6 @@ export default function NotFound() {
             Que tal voltar para um território conhecido?
           </motion.p>
 
-          {/* Animações flutuantes */}
           <div className="relative">
             <motion.div
               className="absolute -left-32 top-0"

@@ -15,18 +15,18 @@ const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 export function LoadingProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Força o loading a parar após um tempo máximo
+  
   useEffect(() => {
     if (isLoading) {
       const timer = setTimeout(() => {
         setIsLoading(false);
-      }, 2000); // Tempo máximo de loading: 2 segundos
+      }, 2000); 
 
       return () => clearTimeout(timer);
     }
   }, [isLoading]);
 
-  // Força o loading a parar quando o documento estiver pronto
+
   useEffect(() => {
     if (document.readyState === 'complete') {
       setIsLoading(false);

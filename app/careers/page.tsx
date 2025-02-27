@@ -127,7 +127,7 @@ const openings = [
       }
     ]
   },
-  // Customer Success
+
   {
     department: "Atendimento ao Cliente",
     icon: MessageSquare,
@@ -168,27 +168,6 @@ const process = [
   {
     title: "Proposta",
     description: "Apresentação da oferta"
-  }
-];
-
-const testimonials = [
-  {
-    name: "M. Silva",
-    role: "Desenvolvedor Full Stack",
-    image: "/team/person1.jpg",
-    content: "Trabalhar na Nexora tem sido incrível. O ambiente é colaborativo e há muito espaço para crescimento."
-  },
-  {
-    name: "A. Santos",
-    role: "Product Designer",
-    image: "/team/person2.jpg",
-    content: "A cultura de inovação e o foco em desenvolvimento pessoal são diferenciais únicos da empresa."
-  },
-  {
-    name: "R. Oliveira",
-    role: "Marketing Manager",
-    image: "/team/person3.jpg",
-    content: "Os benefícios são excelentes e o ambiente de trabalho é inspirador. Melhor empresa que já trabalhei."
   }
 ];
 
@@ -267,7 +246,7 @@ export default function CareersPage() {
         </div>
       </motion.section>
 
-      {/* Stats Section com CountUp */}
+     
       <section ref={statsRef} className="py-12 md:py-20 bg-muted/50">
         <div className="container px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
@@ -299,7 +278,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Culture Section com Hover Effects */}
+ 
       <section className="py-12 md:py-20">
         <div className="container px-4">
           <motion.h2
@@ -360,7 +339,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Benefits Section com Cards Animados */}
+  
       <section className="py-12 md:py-20 bg-muted/50">
         <div className="container px-4">
           <motion.h2
@@ -394,7 +373,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Process Section com Timeline Animada */}
       <section className="py-12 md:py-20">
         <div className="container px-4">
           <motion.h2
@@ -455,7 +433,6 @@ export default function CareersPage() {
 
  
 
-      {/* Open Positions */}
       <section id="vagas" className="py-12 md:py-20 w-full overflow-hidden">
         <div className="container px-4">
           <motion.h2
@@ -566,7 +543,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section className="py-20 bg-muted/50">
         <div className="container max-w-4xl">
           <motion.div
@@ -610,7 +586,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Modal */}
+
       <Modal 
         isOpen={isModalOpen} 
         onClose={handleCloseModal}

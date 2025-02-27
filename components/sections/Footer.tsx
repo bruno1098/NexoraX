@@ -147,7 +147,7 @@ export default function Footer() {
             </p>
           </motion.div>
 
-          {/* Links da Empresa */}
+         
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -164,7 +164,7 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Links Legais */}
+         
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

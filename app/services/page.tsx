@@ -12,7 +12,6 @@ import {
 import Header from '@/components/sections/Header';
 import { usePageLoading } from '@/hooks/usePageLoading';
 
-// Importar o Player de forma dinâmica com loading fallback
 const Player = dynamicImport(
   () => import('@lottiefiles/react-lottie-player').then((mod) => mod.Player),
   { 
@@ -184,7 +183,7 @@ const allServices = [
       }
     ]
   },
-  // Nova categoria de Automação e IA
+  // categoria de Automação e IA
   {
     category: "Automação e Inteligência Artificial",
     icon: MessageSquare,

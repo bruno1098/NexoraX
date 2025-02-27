@@ -31,29 +31,29 @@ export default function Header() {
     e.preventDefault();
     setIsMobileMenuOpen(false);
     
-    // Se estiver em outra página que não seja a home
+    const elementId = href.includes('#') ? href.split('#')[1] : '';
+    
     if (pathname !== '/') {
-      // Se o link contiver #, primeiro navega para home e depois faz o scroll
-      if (href.includes('#')) {
-        await navigate('/');
-        const elementId = href.split('#')[1];
+      if (elementId) {
+        router.push('/');
+        setTimeout(() => {
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 800);
+      } else {
+        router.push(href);
+      }
+    } else {
+      if (elementId) {
         const element = document.getElementById(elementId);
         if (element) {
-          requestAnimationFrame(() => {
+          setTimeout(() => {
             element.scrollIntoView({ behavior: 'smooth' });
-          });
+          }, 100);
         }
-      } else {
-        await navigate(href);
       }
-      return;
-    }
-
-    // Se estiver na home, apenas faz o scroll suave
-    const elementId = href.split('#')[1];
-    const element = document.getElementById(elementId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -76,11 +76,10 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Fundo com blur */}
       <div 
         className={cn(
           "absolute inset-0 transition-all duration-300",
-          isScrolled ? "bg-background/60 backdrop-blur-md" : "bg-transparent"
+          isScrolled || isMobileMenuOpen ? "bg-background/80 backdrop-blur-md" : "bg-transparent"
         )} 
       />
 
@@ -168,18 +167,16 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden"
+              className="md:hidden fixed top-[70px] left-0 right-0 bg-background/95 backdrop-blur-sm shadow-lg"
+              style={{ maxHeight: 'calc(100vh - 70px)', overflowY: 'auto' }}
             >
-              <div className="py-4 space-y-4">
+              <div className="container py-6 space-y-6">
                 {menuItems.map((item) => (
                   <motion.a
                     key={item.label}
                     href={item.href}
-                    onClick={(e) => {
-                      handleClick(e, item.href);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="block text-foreground/80 hover:text-foreground py-2"
+                    onClick={(e) => handleClick(e, item.href)}
+                    className="block text-lg font-medium text-foreground/80 hover:text-foreground py-3 border-b border-muted"
                     whileHover={{ x: 10 }}
                   >
                     {item.label}
@@ -187,16 +184,35 @@ export default function Header() {
                 ))}
                 <motion.a
                   href="#contact"
-                  onClick={(e) => {
-                    handleClick(e, '#contact');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block btn-primary text-center"
+                  onClick={(e) => handleClick(e, '#contact')}
+                  className="block btn-primary text-center py-4 mt-4"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Fale Conosco
                 </motion.a>
+                
+                {/* Botão de alternar tema no menu mobile */}
+                <div className="flex justify-center mt-4">
+                  <motion.button
+                    onClick={toggleTheme}
+                    className="p-3 rounded-full bg-muted/20 hover:bg-muted/30 transition-colors flex items-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {theme === 'light' ? (
+                      <>
+                        <Moon className="w-5 h-5" />
+                        <span>Modo Escuro</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sun className="w-5 h-5" />
+                        <span>Modo Claro</span>
+                      </>
+                    )}
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           )}
